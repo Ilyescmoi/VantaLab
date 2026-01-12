@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+@layer base {
+  :root {
+    /* --- PALETTE VANTA LAB (Mode Sombre Forcé) --- */
+    --background: 5 5 5;          /* #050505 - Noir Vanta */
+    --foreground: 224 224 224;    /* #E0E0E0 - Gris Argent */
+
+    --card: 18 18 18;             /* #121212 */
+    --card-foreground: 224 224 224;
+
+    --popover: 5 5 5;
+    --popover-foreground: 224 224 224;
+
+    --primary: 224 224 224;       /* Blanc pour le texte principal */
+    --primary-foreground: 5 5 5;  /* Noir pour le texte sur fond blanc */
+
+    --secondary: 18 18 18;        /* Gris foncé */
+    --secondary-foreground: 224 224 224;
+
+    --muted: 18 18 18;
+    --muted-foreground: 161 161 170; /* #A1A1AA */
+
+    --accent: 0 67 156;           /* #00439C - BLEU PLAYSTATION */
+    --accent-foreground: 255 255 255;
+
+    --destructive: 127 29 29;
+    --destructive-foreground: 255 255 255;
+
+    --border: 31 31 31;           /* #1F1F1F */
+    --input: 31 31 31;
+    --ring: 0 67 156;             /* Ring bleu */
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    /* CORRECTION ICI : On utilise du CSS standard au lieu de @apply */
+    border-color: rgb(var(--border));
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+  }
+}
+
+/* Classes utilitaires personnalisées pour Vanta */
+@layer utilities {
+  .bg-vanta-bg { background-color: rgb(5, 5, 5); }
+  .text-vanta-text { color: rgb(224, 224, 224); }
+  .text-vanta-blue { color: rgb(0, 67, 156); }
+  .bg-vanta-blue { background-color: rgb(0, 67, 156); }
+}
+
+/* ... tout ton code existant ... */
+
+/* AJOUTS POUR LES BLOBS */
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
