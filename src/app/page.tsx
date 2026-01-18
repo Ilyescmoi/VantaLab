@@ -1,48 +1,32 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     ArrowRight, MessageCircle, Database, Sparkles, Bot,
-    ClipboardList, Menu, X, Check, CheckCheck, ChevronDown, Calendar
+    ClipboardList, Menu, X, Check, CheckCheck, ChevronDown, Calendar, Loader2
 } from 'lucide-react';
 
 export default function VantaLabUltimate() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+    const [iframeLoaded, setIframeLoaded] = useState(false);
 
+    // Ton lien Calendly
     const calendlyLink = "https://calendly.com/contact-irizu/nouvelle-reunion";
 
-    useEffect(() => {
-        const head = document.head;
-
-        if (!document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')) {
-            const script = document.createElement('script');
-            script.setAttribute('src', 'https://assets.calendly.com/assets/external/widget.js');
-            head.appendChild(script);
-        }
-
-        if (!document.querySelector('link[href="https://assets.calendly.com/assets/external/widget.css"]')) {
-            const style = document.createElement('link');
-            style.setAttribute('rel', 'stylesheet');
-            style.setAttribute('href', 'https://assets.calendly.com/assets/external/widget.css');
-            head.appendChild(style);
-        }
-    }, []);
-
-    // Fonction pour ouvrir la popin
-    const openCalendly = (e: React.MouseEvent) => {
+    const openModal = (e: React.MouseEvent) => {
         e.preventDefault();
-        // On dit à TypeScript de traiter window comme "n'importe quoi" (any) pour accéder à Calendly
-        if ((window as any).Calendly) {
-            (window as any).Calendly.initPopupWidget({ url: calendlyLink });
-        }
+        setIsCalendlyOpen(true);
+        setIsMobileMenuOpen(false);
     };
 
     return (
         <div className="relative min-h-screen bg-slate-950 text-slate-100 font-sans overflow-x-hidden selection:bg-indigo-500/30">
 
-            {/* --- BACKGROUND AURORA --- */}
-            <div className="fixed top-[-10%] right-[-5%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-indigo-900/20 rounded-full blur-[80px] md:blur-[120px] animate-pulse pointer-events-none z-0"></div>
-            <div className="fixed bottom-[20%] left-[-10%] w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-fuchsia-900/10 rounded-full blur-[60px] md:blur-[100px] pointer-events-none z-0"></div>
+            {/* --- BACKGROUND AURORA OPTIMISÉ (GPU) --- */}
+            {/* will-change-transform évite le lag */}
+            <div className="fixed top-[-10%] right-[-5%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-indigo-900/20 rounded-full blur-[80px] md:blur-[120px] animate-pulse pointer-events-none z-0" style={{ willChange: 'transform, opacity' }}></div>
+            <div className="fixed bottom-[20%] left-[-10%] w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-fuchsia-900/10 rounded-full blur-[60px] md:blur-[100px] pointer-events-none z-0" style={{ willChange: 'transform, opacity' }}></div>
 
             {/* --- NAV RESPONSIVE --- */}
             <nav className="fixed w-full z-50 top-4 px-4">
@@ -52,16 +36,16 @@ export default function VantaLabUltimate() {
                         Vanta<span className="text-indigo-400">Lab.</span>
                     </a>
 
-                    {/* Desktop Menu (Ordre inversé + Renommé) */}
+                    {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
                         <a href="#demo" className="hover:text-white transition-colors">Démo</a>
                         <a href="#solutions" className="hover:text-white transition-colors">Solutions</a>
                         <a href="#contact" className="hover:text-white transition-colors">Qui je suis</a>
                     </div>
 
-                    {/* CTA Desktop -> Ouvre la Popin */}
+                    {/* CTA Desktop */}
                     <button
-                        onClick={openCalendly}
+                        onClick={openModal}
                         className="hidden md:block bg-white text-slate-950 text-xs font-bold px-5 py-2.5 rounded-full hover:bg-slate-200 transition-colors"
                     >
                         Discuter de mon projet
@@ -84,7 +68,7 @@ export default function VantaLabUltimate() {
                         <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-200">Qui je suis</a>
                         <div className="h-px bg-white/10 my-2"></div>
                         <button
-                            onClick={(e) => { setIsMobileMenuOpen(false); openCalendly(e); }}
+                            onClick={openModal}
                             className="bg-indigo-600 text-white text-center py-3 rounded-xl font-bold w-full"
                         >
                             Réserver un créneau
@@ -174,7 +158,7 @@ export default function VantaLabUltimate() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                    {/* Card 1 : Collecte + REAL UI */}
+                    {/* Card 1 : Collecte */}
                     <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:bg-slate-900/60 transition-colors flex flex-col group">
                         <div className="mb-6">
                             <div className="bg-indigo-500/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -186,8 +170,7 @@ export default function VantaLabUltimate() {
                                 Les invités remplissent sur leur téléphone.
                             </p>
                         </div>
-
-                        {/* Mini UI : Vrai Formulaire */}
+                        {/* Mini UI */}
                         <div className="mt-auto bg-slate-950 border border-white/10 rounded-xl p-4 relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500"></div>
                             <div className="flex justify-between items-center mb-3">
@@ -200,10 +183,6 @@ export default function VantaLabUltimate() {
                                         Sans Gluten <ChevronDown size={10} className="text-slate-500"/>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 bg-indigo-500 rounded flex items-center justify-center"><Check size={8} className="text-white"/></div>
-                                    <span className="text-[10px] text-slate-300">Besoin Navette (2 pers)</span>
-                                </div>
                                 <div className="bg-white h-7 rounded w-full mt-2 flex items-center justify-center text-[10px] font-bold text-slate-900 uppercase tracking-wide">
                                     Confirmer ma venue
                                 </div>
@@ -211,7 +190,7 @@ export default function VantaLabUltimate() {
                         </div>
                     </div>
 
-                    {/* Card 2 : Organisation + REAL UI */}
+                    {/* Card 2 : Organisation */}
                     <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:bg-slate-900/60 transition-colors flex flex-col group">
                         <div className="mb-6">
                             <div className="bg-fuchsia-500/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -223,8 +202,7 @@ export default function VantaLabUltimate() {
                                 Sachez exactement combien de repas Végé commander.
                             </p>
                         </div>
-
-                        {/* Mini UI : Vraie Database */}
+                        {/* Mini UI */}
                         <div className="mt-auto bg-white rounded-xl p-3 shadow-sm border border-slate-200">
                             <div className="grid grid-cols-3 gap-1 mb-2 border-b border-slate-100 pb-1">
                                 <span className="text-[9px] text-slate-400 font-bold uppercase">Nom</span>
@@ -246,7 +224,7 @@ export default function VantaLabUltimate() {
                         </div>
                     </div>
 
-                    {/* Card 3 : Bot + REAL UI */}
+                    {/* Card 3 : Bot */}
                     <div className="bg-slate-900/40 border border-indigo-500/20 rounded-3xl p-6 hover:bg-slate-900/60 transition-colors flex flex-col group">
                         <div className="mb-6">
                             <div className="bg-emerald-500/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -257,8 +235,7 @@ export default function VantaLabUltimate() {
                                 Il répond aux questions simples (Adresses, Horaires) en utilisant uniquement les infos validées.
                             </p>
                         </div>
-
-                        {/* Mini UI : Vrai Chat */}
+                        {/* Mini UI */}
                         <div className="mt-auto bg-slate-950/50 border border-white/5 rounded-xl p-4">
                             <div className="space-y-3">
                                 <div className="bg-slate-800 p-2 rounded-lg rounded-tl-none text-[10px] text-slate-300 w-fit max-w-[85%]">
@@ -266,22 +243,16 @@ export default function VantaLabUltimate() {
                                 </div>
                                 <div className="ml-auto w-fit max-w-[85%] flex flex-col items-end">
                                     <div className="bg-emerald-700 p-2 rounded-lg rounded-tr-none text-[10px] text-white shadow-lg">
-                                        Au Domaine de Verchant ! <br/>
-                                        Voici le lien GPS : <span className="underline text-emerald-200">http://googleusercontent.com/maps...</span>
-                                    </div>
-                                    <div className="flex items-center gap-1 mt-1 opacity-70">
-                                        <span className="text-[8px] text-slate-500">14:02</span>
-                                        <CheckCheck size={10} className="text-emerald-500"/>
+                                        Au Domaine de Verchant !
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
-            {/* --- SECTION ILYES + CTA --- */}
+            {/* --- SECTION ILYES (ID ABOUT) --- */}
             <section id="contact" className="py-24 px-6 relative">
                 <div className="max-w-4xl mx-auto bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden">
 
@@ -310,7 +281,7 @@ export default function VantaLabUltimate() {
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                                 <button
-                                    onClick={openCalendly}
+                                    onClick={openModal}
                                     className="bg-white text-slate-900 font-bold py-3 px-8 rounded-xl hover:bg-slate-200 transition-colors shadow-lg flex items-center justify-center gap-2"
                                 >
                                     <Calendar size={16} />
@@ -335,6 +306,46 @@ export default function VantaLabUltimate() {
             <footer className="py-10 text-center border-t border-white/5 bg-slate-950">
                 <p className="text-slate-600 text-xs font-medium tracking-widest uppercase">Vanta Lab © 2026</p>
             </footer>
+
+            {/* --- CUSTOM MODAL CALENDLY (IFRAME DIRECT - ZÉRO LAG) --- */}
+            {isCalendlyOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    {/* Backdrop avec flou */}
+                    <div
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+                        onClick={() => setIsCalendlyOpen(false)}
+                    ></div>
+
+                    {/* Contenu de la modale */}
+                    <div className="relative bg-slate-900 w-full max-w-4xl h-[700px] max-h-[90vh] rounded-3xl border border-white/10 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+
+                        {/* Bouton Fermer */}
+                        <button
+                            onClick={() => setIsCalendlyOpen(false)}
+                            className="absolute top-4 right-4 z-50 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors border border-white/10"
+                        >
+                            <X size={20} />
+                        </button>
+
+                        {/* Iframe Calendly Directe */}
+                        <div className="w-full h-full relative z-10 bg-white">
+                            {!iframeLoaded && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-slate-900 text-indigo-500 z-0">
+                                    <Loader2 className="w-8 h-8 animate-spin" />
+                                </div>
+                            )}
+                            <iframe
+                                src={calendlyLink}
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                onLoad={() => setIframeLoaded(true)}
+                                className={`relative z-10 transition-opacity duration-500 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </div>
     );
