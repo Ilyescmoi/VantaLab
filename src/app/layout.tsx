@@ -5,12 +5,21 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Vanta Lab | Agence d'Automatisation IA & Workflows pour Entreprises",
-    description: "Vanta Lab conçoit des architectures d'automatisation sur-mesure (n8n, Make, AI) pour aider les agences à scaler sans recruter. Audit gratuit.",
-    keywords: ["Automatisation", "Agence IA", "n8n expert", "Optimisation Processus", "Vanta Lab", "Make.com consultant"],
+    // Titre : Clair, cible la niche et la promesse
+    title: "Vanta Lab | L'Assistant Logistique des Organisateurs d'événements",
+
+    // Description : Parle du problème (Excel) et de la solution (Centralisation/WhatsApp)
+    description: "Fini le chaos des fichiers Excel. Centralisez la gestion de vos invités, des menus et automatisez vos réponses WhatsApp. Un système sur-mesure pour les pros de l'événementiel.",
+
+    // Keywords : Ce que tes clientes tapent dans Google
+    keywords: ["Wedding Planner", "Gestion Invités", "Organisation Mariage", "RSVP WhatsApp", "Logistique Événementielle", "Automatisation Mariage", "Vanta Lab"],
+
     openGraph: {
-        title: "Vanta Lab | L'Infrastructure Invisible des Agences qui Scalent",
-        description: "Arrêtez de perdre du temps. Automatisez 100% de vos opérations.",
+        // Titre Social (LinkedIn/WhatsApp) : Punchy, reprend ta Hero Section
+        title: "Vos mariages. Sans le chaos.",
+
+        // Description Sociale : Donne envie de cliquer pour voir la solution
+        description: "Découvrez le système qui gère la logistique et les invités à votre place. Moins d'Excel, plus de sérénité.",
         url: 'https://vantalab.com',
         siteName: 'Vanta Lab',
         locale: 'fr_FR',
