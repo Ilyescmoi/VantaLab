@@ -290,8 +290,11 @@ export default function VantaLabUltimate() {
                         {/* Photo Avatar */}
                         <div className="md:col-span-1 flex justify-center">
                             <div className="w-32 h-32 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-900 shadow-xl overflow-hidden relative group">
-                                <span className="text-3xl font-bold text-slate-500 group-hover:text-white transition-colors">IB</span>
-                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent"></div>
+                                <img
+                                    src="/ma-tete.jpeg"
+                                    alt="Ilyes Vanta Lab"
+                                    className="w-full h-full object-cover transform scale-150 transition-transform duration-500"
+                                />
                             </div>
                         </div>
 
