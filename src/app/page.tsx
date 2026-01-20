@@ -19,18 +19,39 @@ export default function VantaLabFinal() {
         setIsMobileMenuOpen(false);
     };
 
+    // --- LA CLASS DU BOUTON ULTIME (3D + GLOW + CLICK) ---
+    // 1. Base: Indigo + Bordure fine
+    // 2. Shadow: Ombre dure décalée (4px 4px) couleur Indigo Foncé (#312e81)
+    // 3. Hover: Décalage vers le haut (-1px) + Ombre s'agrandit (6px) + GLOW bleu
+    // 4. Active: Décalage vers le bas (translate) + Ombre disparait (flat)
+    const btnClass = `
+        bg-[#818CF8] text-white font-bold rounded-xl flex items-center justify-center gap-2 
+        border border-white/10
+        transition-all duration-200 ease-in-out
+        shadow-[4px_4px_0px_#3730a3]
+        hover:shadow-[6px_6px_0px_#3730a3,_0_0_20px_rgba(129,140,248,0.6)]
+        hover:-translate-y-[2px] hover:-translate-x-[2px]
+        active:translate-x-[2px] active:translate-y-[2px]
+        active:shadow-none
+    `;
+
     return (
         <div className="relative min-h-screen bg-[#050508] text-white font-sans overflow-x-hidden selection:bg-[#818CF8]/30">
 
             {/* --- STYLES GLOBAUX --- */}
-            {/* J'ai ajouté !important pour forcer la police Space Grotesk quoiqu'il arrive */}
             <style dangerouslySetInnerHTML={{__html: `
-                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&display=swap');
                 
                 .font-space { 
                     font-family: 'Space Grotesk', sans-serif !important; 
                 }
                 
+                /* TITRES 3D OFFSET */
+                .text-3d-vanta {
+                    color: white;
+                    text-shadow: 3px 3px 0px #818CF8;
+                }
+
                 html { scroll-behavior: smooth; }
             `}} />
 
@@ -44,18 +65,17 @@ export default function VantaLabFinal() {
                  }}>
             </div>
 
+            {/* --- NAV RESPONSIVE --- */}
             <nav className="fixed w-full z-50 top-6 px-6">
-                <div className="max-w-7xl mx-auto bg-[#0A0A0E]/80 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-4 flex items-center justify-between shadow-2xl">
+                <div className="max-w-7xl mx-auto bg-[#0A0A0E]/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 md:py-4 flex items-center justify-between shadow-2xl">
 
-                    <a href="#" className="group relative flex items-center gap-1">
-                        <div className="text-2xl font-bold tracking-tight text-white font-space flex flex-col justify-center items-center">
-                            VANTA <br/>
-                            <div className="flex items-center justify-center flex-row">
-                                <span className="text-whitejustify-center items-center"> LAB</span>
-                                <span className="text-[#818CF8] justify-center items-center"> .</span>
-                            </div>
-
-                        </div>
+                    {/* LOGO (Grande taille pour netteté) */}
+                    <a href="#" className="flex items-center">
+                        <img
+                            src="/logo-vanta-3d.svg"
+                            alt="Vanta Lab Logo"
+                            className="h-12 md:h-16 w-auto object-contain hover:scale-105 transition-transform"
+                        />
                     </a>
 
                     <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
@@ -64,7 +84,10 @@ export default function VantaLabFinal() {
                         <a href="#contact" className="hover:text-[#818CF8] transition-colors">Qui je suis</a>
                     </div>
 
-                    <button onClick={openModal} className="hidden md:block bg-[#818CF8] text-white text-xs font-bold px-6 py-3 rounded-lg hover:bg-[#6b77e8] transition-all duration-300 transform hover:-translate-y-1">
+                    <button
+                        onClick={openModal}
+                        className={`hidden md:flex px-6 py-3 text-xs ${btnClass}`}
+                    >
                         Discuter de mon projet
                     </button>
 
@@ -79,7 +102,7 @@ export default function VantaLabFinal() {
                         <a href="#solutions" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-200">Solutions</a>
                         <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-200">Qui je suis</a>
                         <div className="h-px bg-white/10 my-2"></div>
-                        <button onClick={openModal} className="bg-[#818CF8] text-white text-center py-4 rounded-xl font-bold w-full shadow-lg">
+                        <button onClick={openModal} className={`w-full py-4 ${btnClass}`}>
                             Réserver un créneau
                         </button>
                     </div>
@@ -90,10 +113,9 @@ export default function VantaLabFinal() {
             <section id="demo" className="relative z-10 pt-40 pb-20 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
                 <div className="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
 
-                    {/* TITRE H1 (Police forcée) */}
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.95] font-space">
                         VOS INVITÉS.<br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#818CF8] to-white">
+                        <span className="text-3d-vanta tracking-wide">
                             SOUS CONTRÔLE.
                         </span>
                     </h1>
@@ -103,17 +125,18 @@ export default function VantaLabFinal() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-                        <a href="#solutions" className="group px-8 py-4 bg-[#818CF8] text-white font-bold rounded-lg hover:shadow-[0_0_30px_-5px_rgba(129,140,248,0.6)] transition-all flex items-center justify-center gap-2">
+                        <a href="#solutions" className={`px-8 py-4 ${btnClass}`}>
                             Voir le système
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <ArrowRight className="w-4 h-4" />
                         </a>
-                        <a href="#contact" className="px-8 py-4 border border-white/10 hover:border-[#818CF8]/50 text-white font-bold rounded-lg hover:bg-[#818CF8]/5 transition-colors text-center">
+
+                        <a href="#contact" className="px-8 py-4 border border-white/10 text-white font-bold rounded-xl hover:bg-[#818CF8]/10 transition-colors text-center flex items-center justify-center">
                             Me contacter
                         </a>
                     </div>
                 </div>
 
-                {/* VISUALISATION 3D FLOTTANTE */}
+                {/* 3D FLOATING CARDS */}
                 <div className="relative h-[500px] hidden lg:block perspective-[2000px]">
                     <div className="absolute top-20 right-10 w-72 bg-[#121217] border border-white/10 hover:border-[#818CF8]/50 p-6 rounded-3xl transform rotate-y-[-10deg] rotate-x-[5deg] translate-z-[50px] shadow-2xl hover:scale-105 transition-transform duration-500 z-20">
                         <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
@@ -152,18 +175,18 @@ export default function VantaLabFinal() {
                 </div>
             </section>
 
-            {/* --- SOLUTIONS (TITRE H2 en police forcée) --- */}
+            {/* --- SOLUTIONS --- */}
             <section id="solutions" className="py-24 px-6 max-w-7xl mx-auto">
                 <div className="mb-16">
-                    <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight font-space">
+                    <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight font-space leading-tight">
                         SIMPLIFIER<br/>
-                        <span className="text-[#818CF8]">L'ORGANISATION.</span>
+                        <span className="text-3d-vanta tracking-wide">L'ORGANISATION.</span>
                     </h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    {/* Carte 1 : Collecte (INDIGO) */}
+                    {/* Carte 1 : Collecte */}
                     <div className="bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-[#818CF8] transition-all duration-300 group relative overflow-hidden shadow-lg">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-[#818CF8]/10 blur-3xl rounded-full group-hover:bg-[#818CF8]/20 transition-all"></div>
                         <ClipboardList className="w-10 h-10 text-[#818CF8] mb-6" />
@@ -173,7 +196,7 @@ export default function VantaLabFinal() {
                         </p>
                     </div>
 
-                    {/* Carte 2 : Pilotage (ROSE/FUCHSIA) */}
+                    {/* Carte 2 : Pilotage */}
                     <div className="md:col-span-2 bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-fuchsia-500 transition-all duration-300 group relative overflow-hidden flex flex-col md:flex-row gap-8 items-center shadow-lg">
                         <div className="absolute top-[-50%] left-[20%] w-64 h-64 bg-fuchsia-500/10 blur-3xl rounded-full group-hover:bg-fuchsia-500/20 transition-all"></div>
                         <div className="flex-1 relative z-10">
@@ -196,7 +219,7 @@ export default function VantaLabFinal() {
                         </div>
                     </div>
 
-                    {/* Carte 3 : Communication (VERT/EMERALD) */}
+                    {/* Carte 3 : Communication */}
                     <div className="bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-emerald-500 transition-all duration-300 group relative overflow-hidden shadow-lg">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-3xl rounded-full group-hover:bg-emerald-500/20 transition-all"></div>
                         <MessageCircle className="w-10 h-10 text-emerald-400 mb-6" />
@@ -208,13 +231,15 @@ export default function VantaLabFinal() {
                         </p>
                     </div>
 
-                    {/* CTA */}
+                    {/* CTA - BOX */}
                     <div className="md:col-span-2 bg-gradient-to-r from-[#818CF8] to-[#6366f1] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between text-white relative overflow-hidden shadow-2xl">
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-black mb-2 font-space">PRÊT À GAGNER DU TEMPS ?</h3>
+                            <h3 className="text-2xl font-black mb-2 font-space tracking-wide">
+                                PRÊT À GAGNER DU TEMPS ?
+                            </h3>
                             <p className="text-indigo-100 text-sm opacity-90">Concentrez-vous sur l'événement, pas sur le fichier Excel.</p>
                         </div>
-                        <button onClick={openModal} className="relative z-10 mt-6 md:mt-0 bg-white text-[#4f46e5] font-bold px-8 py-3 rounded-lg hover:scale-105 transition-transform shadow-xl">
+                        <button onClick={openModal} className={`mt-6 md:mt-0 px-8 py-3 bg-white text-[#4f46e5] font-bold rounded-xl shadow-[4px_4px_0px_#312e81] hover:shadow-[6px_6px_0px_#312e81,_0_0_20px_rgba(255,255,255,0.6)] hover:-translate-y-[2px] active:translate-y-[2px] active:shadow-none transition-all duration-200 relative z-10`}>
                             Démarrer l'audit
                         </button>
                     </div>
@@ -248,7 +273,7 @@ export default function VantaLabFinal() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <button
                                 onClick={openModal}
-                                className="bg-[#818CF8] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#6b77e8] transition-colors shadow-[0_0_20px_rgba(129,140,248,0.3)] flex items-center justify-center gap-2"
+                                className={`px-8 py-3 ${btnClass}`}
                             >
                                 <Calendar size={18} />
                                 Réserver un appel
@@ -263,12 +288,15 @@ export default function VantaLabFinal() {
 
             {/* FOOTER */}
             <footer className="py-10 text-center border-t border-white/5 bg-[#050508]">
-                <div className="flex justify-center items-center gap-2 mb-4 opacity-70">
-                    <span className="font-bold tracking-tighter text-white font-space">VANTA</span>
-                    <div className="w-1.5 h-1.5 bg-[#818CF8] rounded-full"></div>
+                <div className="flex justify-center items-center gap-2 mb-4 opacity-80">
+                    <img
+                        src="/logo-vanta-3d.svg"
+                        alt="Vanta Lab Logo"
+                        className="h-10 md:h-12 w-auto object-contain grayscale transition-all"
+                    />
                 </div>
                 <p className="text-slate-600 text-[10px] font-mono tracking-widest uppercase">
-                    2026
+                    Designed in Paris © 2026
                 </p>
             </footer>
 
