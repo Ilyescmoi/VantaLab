@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import {
     ArrowRight, MessageCircle, Database, Bot,
-    ClipboardList, Menu, X, Calendar, Loader2
+    ClipboardList, Menu, X, Calendar, Loader2, LayoutDashboard
 } from 'lucide-react';
 
 export default function VantaLabFinal() {
@@ -20,10 +20,6 @@ export default function VantaLabFinal() {
     };
 
     // --- LA CLASS DU BOUTON ULTIME (3D + GLOW + CLICK) ---
-    // 1. Base: Indigo + Bordure fine
-    // 2. Shadow: Ombre dure décalée (4px 4px) couleur Indigo Foncé (#312e81)
-    // 3. Hover: Décalage vers le haut (-1px) + Ombre s'agrandit (6px) + GLOW bleu
-    // 4. Active: Décalage vers le bas (translate) + Ombre disparait (flat)
     const btnClass = `
         bg-[#818CF8] text-white font-bold rounded-xl flex items-center justify-center gap-2 
         border border-white/10
@@ -69,7 +65,7 @@ export default function VantaLabFinal() {
             <nav className="fixed w-full z-50 top-6 px-6">
                 <div className="max-w-7xl mx-auto bg-[#0A0A0E]/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 md:py-4 flex items-center justify-between shadow-2xl">
 
-                    {/* LOGO (Grande taille pour netteté) */}
+                    {/* LOGO */}
                     <a href="#" className="flex items-center">
                         <img
                             src="/logo-vanta-3d.svg"
@@ -196,10 +192,13 @@ export default function VantaLabFinal() {
                         </p>
                     </div>
 
-                    {/* Carte 2 : Pilotage */}
+                    {/* Carte 2 : Pilotage (ROSE/FUCHSIA) */}
                     <div className="md:col-span-2 bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-fuchsia-500 transition-all duration-300 group relative overflow-hidden flex flex-col md:flex-row gap-8 items-center shadow-lg">
                         <div className="absolute top-[-50%] left-[20%] w-64 h-64 bg-fuchsia-500/10 blur-3xl rounded-full group-hover:bg-fuchsia-500/20 transition-all"></div>
                         <div className="flex-1 relative z-10">
+                            {/* ICÔNE AJOUTÉE ICI : LayoutDashboard en Fuchsia */}
+                            <LayoutDashboard className="w-10 h-10 text-fuchsia-400 mb-6" />
+
                             <h3 className="text-2xl font-bold text-white mb-4">
                                 2. Pilotage <span className="text-fuchsia-400">Global</span>
                             </h3>
