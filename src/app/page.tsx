@@ -2,16 +2,15 @@
 
 import React, { useState } from 'react';
 import {
-    ArrowRight, MessageCircle, Database, Sparkles, Bot,
-    ClipboardList, Menu, X, Check, CheckCheck, ChevronDown, Calendar, Loader2
+    ArrowRight, MessageCircle, Database, Bot,
+    ClipboardList, Menu, X, Calendar, Loader2
 } from 'lucide-react';
 
-export default function VantaLabUltimate() {
+export default function VantaLabFinal() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
     const [iframeLoaded, setIframeLoaded] = useState(false);
 
-    // Ton lien Calendly
     const calendlyLink = "https://calendly.com/contact-irizu/nouvelle-reunion";
 
     const openModal = (e: React.MouseEvent) => {
@@ -21,332 +20,277 @@ export default function VantaLabUltimate() {
     };
 
     return (
-        <div className="relative min-h-screen bg-slate-950 text-slate-100 font-sans overflow-x-hidden selection:bg-indigo-500/30">
+        <div className="relative min-h-screen bg-[#050508] text-white font-sans overflow-x-hidden selection:bg-[#818CF8]/30">
 
-            {/* --- BACKGROUND AURORA OPTIMISÉ (GPU) --- */}
-            {/* will-change-transform évite le lag */}
-            <div className="fixed top-[-10%] right-[-5%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-indigo-900/20 rounded-full blur-[80px] md:blur-[120px] animate-pulse pointer-events-none z-0" style={{ willChange: 'transform, opacity' }}></div>
-            <div className="fixed bottom-[20%] left-[-10%] w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-fuchsia-900/10 rounded-full blur-[60px] md:blur-[100px] pointer-events-none z-0" style={{ willChange: 'transform, opacity' }}></div>
+            {/* --- STYLES GLOBAUX --- */}
+            {/* J'ai ajouté !important pour forcer la police Space Grotesk quoiqu'il arrive */}
+            <style dangerouslySetInnerHTML={{__html: `
+                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap');
+                
+                .font-space { 
+                    font-family: 'Space Grotesk', sans-serif !important; 
+                }
+                
+                html { scroll-behavior: smooth; }
+            `}} />
 
-            {/* --- NAV RESPONSIVE --- */}
-            <nav className="fixed w-full z-50 top-4 px-4">
-                <div className="max-w-6xl mx-auto bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+            {/* --- FOND --- */}
+            <div className="fixed top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#818CF8]/10 rounded-full blur-[120px] pointer-events-none z-0 mix-blend-screen animate-pulse"></div>
+            <div className="fixed bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] pointer-events-none z-0 mix-blend-screen"></div>
+            <div className="fixed inset-0 z-0 opacity-10 pointer-events-none"
+                 style={{
+                     backgroundImage: 'linear-gradient(rgba(129, 140, 248, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(129, 140, 248, 0.1) 1px, transparent 1px)',
+                     backgroundSize: '50px 50px'
+                 }}>
+            </div>
 
-                    <a href="#" className="font-bold text-white tracking-tight text-lg hover:opacity-80 transition-opacity">
-                        Vanta<span className="text-indigo-400">Lab.</span>
+            <nav className="fixed w-full z-50 top-6 px-6">
+                <div className="max-w-7xl mx-auto bg-[#0A0A0E]/80 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-4 flex items-center justify-between shadow-2xl">
+
+                    <a href="#" className="group relative flex items-center gap-1">
+                        <div className="text-2xl font-bold tracking-tight text-white font-space flex flex-col justify-center items-center">
+                            VANTA <br/>
+                            <div className="flex items-center justify-center flex-row">
+                                <span className="text-whitejustify-center items-center"> LAB</span>
+                                <span className="text-[#818CF8] justify-center items-center"> .</span>
+                            </div>
+
+                        </div>
                     </a>
 
-                    {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-                        <a href="#demo" className="hover:text-white transition-colors">Démo</a>
-                        <a href="#solutions" className="hover:text-white transition-colors">Solutions</a>
-                        <a href="#contact" className="hover:text-white transition-colors">Qui je suis</a>
+                        <a href="#demo" className="hover:text-[#818CF8] transition-colors">Démo</a>
+                        <a href="#solutions" className="hover:text-[#818CF8] transition-colors">Solutions</a>
+                        <a href="#contact" className="hover:text-[#818CF8] transition-colors">Qui je suis</a>
                     </div>
 
-                    {/* CTA Desktop */}
-                    <button
-                        onClick={openModal}
-                        className="hidden md:block bg-white text-slate-950 text-xs font-bold px-5 py-2.5 rounded-full hover:bg-slate-200 transition-colors"
-                    >
+                    <button onClick={openModal} className="hidden md:block bg-[#818CF8] text-white text-xs font-bold px-6 py-3 rounded-lg hover:bg-[#6b77e8] transition-all duration-300 transform hover:-translate-y-1">
                         Discuter de mon projet
                     </button>
 
-                    {/* Mobile Hamburger */}
-                    <button
-                        className="md:hidden text-white"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
+                    <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         {isMobileMenuOpen ? <X /> : <Menu />}
                     </button>
                 </div>
 
-                {/* Mobile Menu Dropdown */}
                 {isMobileMenuOpen && (
-                    <div className="absolute top-20 left-4 right-4 bg-slate-900 border border-white/10 rounded-2xl p-6 flex flex-col gap-4 shadow-2xl md:hidden z-50">
-                        <a href="#demo" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-200">Démo</a>
-                        <a href="#solutions" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-200">Solutions</a>
-                        <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-200">Qui je suis</a>
+                    <div className="absolute top-24 left-4 right-4 bg-[#0A0A0E] border border-white/10 rounded-2xl p-6 flex flex-col gap-4 shadow-2xl md:hidden z-50">
+                        <a href="#demo" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-200">Démo</a>
+                        <a href="#solutions" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-200">Solutions</a>
+                        <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-200">Qui je suis</a>
                         <div className="h-px bg-white/10 my-2"></div>
-                        <button
-                            onClick={openModal}
-                            className="bg-indigo-600 text-white text-center py-3 rounded-xl font-bold w-full"
-                        >
+                        <button onClick={openModal} className="bg-[#818CF8] text-white text-center py-4 rounded-xl font-bold w-full shadow-lg">
                             Réserver un créneau
                         </button>
                     </div>
                 )}
             </nav>
 
-            {/* --- HERO SECTION (ID DEMO) --- */}
-            <section id="demo" className="relative z-10 pt-32 pb-16 md:pt-48 md:pb-24 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            {/* --- HERO SECTION --- */}
+            <section id="demo" className="relative z-10 pt-40 pb-20 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                <div className="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
 
-                <div className="max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium mb-6">
-                        <Sparkles className="w-3 h-3" />
-                        Pour Wedding Planners & Pros
-                    </div>
-
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
-                        Vos invités. <br/>
-                        Votre logistique. <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-white to-fuchsia-200">
-              Sous contrôle.
-            </span>
+                    {/* TITRE H1 (Police forcée) */}
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.95] font-space">
+                        VOS INVITÉS.<br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#818CF8] to-white">
+                            SOUS CONTRÔLE.
+                        </span>
                     </h1>
 
-                    <p className="text-base md:text-lg text-slate-400 mb-8 leading-relaxed">
-                        Centralisez la gestion de vos invités, les choix de menus et les imprévus.
-                        Nous construisons le système qui organise tout automatiquement pour vous.
+                    <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
+                        Centralisez la gestion de vos invités. Fini les tableaux noirs et blancs, place à l'automatisation intelligente.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#solutions" className="group px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-[0_0_30px_-10px_rgba(255,255,255,0.3)]">
+                    <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+                        <a href="#solutions" className="group px-8 py-4 bg-[#818CF8] text-white font-bold rounded-lg hover:shadow-[0_0_30px_-5px_rgba(129,140,248,0.6)] transition-all flex items-center justify-center gap-2">
                             Voir le système
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </a>
+                        <a href="#contact" className="px-8 py-4 border border-white/10 hover:border-[#818CF8]/50 text-white font-bold rounded-lg hover:bg-[#818CF8]/5 transition-colors text-center">
+                            Me contacter
                         </a>
                     </div>
                 </div>
 
-                {/* Visualisation Hero */}
-                <div className="relative h-[450px] hidden lg:block perspective-1000">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/10 to-transparent rounded-full blur-3xl"></div>
-                    {/* CARTE 1 : Le Bot */}
-                    <div className="absolute top-10 right-10 w-64 bg-slate-900/80 backdrop-blur-md border border-white/10 p-5 rounded-2xl transform rotate-6 z-10 shadow-2xl">
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-xs text-slate-500 uppercase tracking-wider font-bold">Bot WhatsApp</span>
-                            <MessageCircle size={14} className="text-indigo-400"/>
+                {/* VISUALISATION 3D FLOTTANTE */}
+                <div className="relative h-[500px] hidden lg:block perspective-[2000px]">
+                    <div className="absolute top-20 right-10 w-72 bg-[#121217] border border-white/10 hover:border-[#818CF8]/50 p-6 rounded-3xl transform rotate-y-[-10deg] rotate-x-[5deg] translate-z-[50px] shadow-2xl hover:scale-105 transition-transform duration-500 z-20">
+                        <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
+                            <div className="flex items-center gap-2">
+                                <div className="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.6)]"></div>
+                                <span className="text-xs font-bold text-white tracking-wide">RÉPONSE AUTO</span>
+                            </div>
+                            <Bot size={18} className="text-[#818CF8]"/>
                         </div>
-                        <div className="space-y-3 text-xs">
-                            <div className="bg-slate-800/50 p-3 rounded-xl rounded-tl-none border border-white/5 text-slate-300">
+                        <div className="space-y-4 font-mono text-xs">
+                            <div className="bg-[#1F1F25] p-3 rounded-2xl rounded-tl-none border border-white/5 text-slate-300">
                                 "C'est à quelle heure la mairie ?"
                             </div>
-                            <div className="bg-indigo-600 p-3 rounded-xl rounded-tr-none text-white text-right shadow-lg">
+                            <div className="bg-[#818CF8] p-3 rounded-2xl rounded-tr-none text-white text-right shadow-lg">
                                 "14h30 précise ! 💍"
                             </div>
-                            <div className="text-[10px] text-slate-500 text-right">Réponse automatique validée</div>
                         </div>
                     </div>
-                    {/* FLÈCHE */}
-                    <div className="absolute top-[180px] left-[180px] z-0 opacity-50">
-                        <ArrowRight className="text-white w-10 h-10 -rotate-45" />
-                    </div>
-                    {/* CARTE 2 : La Base */}
-                    <div className="absolute top-56 left-10 w-80 bg-white text-slate-900 p-5 rounded-2xl shadow-2xl z-20 transform -rotate-2 border border-slate-200">
-                        <div className="flex items-center gap-2 mb-4 border-b border-slate-100 pb-3">
-                            <Database size={16} className="text-indigo-600"/>
-                            <span className="text-xs font-bold tracking-wide">LISTE INVITÉS</span>
+
+                    <div className="absolute top-40 left-0 w-80 h-64 bg-[#0E0E12] border border-white/10 p-6 rounded-3xl transform rotate-y-[10deg] rotate-x-[-5deg] translate-z-[-50px] shadow-2xl opacity-90 z-10 backdrop-blur-md">
+                        <div className="flex items-center gap-3 mb-6">
+                            <Database size={20} className="text-[#818CF8]"/>
+                            <span className="text-xs font-bold text-slate-500 tracking-[0.2em]">SUIVI_INVITÉS</span>
                         </div>
-                        <div className="space-y-2">
-                            <div className="flex justify-between items-center p-2 bg-indigo-50 rounded border border-indigo-100 shadow-sm">
-                                <span className="text-xs font-bold text-indigo-700">Sophie M.</span>
-                                <span className="text-xs text-slate-500">Table 4</span>
-                                <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">PRÉSENTE</span>
+                        <div className="space-y-3">
+                            <div className="h-8 w-full bg-[#818CF8]/10 rounded border border-[#818CF8]/20 flex items-center px-3 gap-3">
+                                <div className="w-2 h-2 rounded-full bg-[#818CF8]"></div>
+                                <div className="h-2 w-20 bg-white/10 rounded"></div>
+                            </div>
+                            <div className="h-8 w-full bg-white/5 rounded border border-white/5 flex items-center px-3 gap-3">
+                                <div className="w-2 h-2 rounded-full bg-slate-600"></div>
+                                <div className="h-2 w-24 bg-white/10 rounded"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* --- SOLUTIONS --- */}
-            <section id="solutions" className="py-20 px-6 max-w-6xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Simplifiez l'organisation.</h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto">
-                        Un système clair. Des invités informés. Une Wedding Planner tranquille.
-                    </p>
+            {/* --- SOLUTIONS (TITRE H2 en police forcée) --- */}
+            <section id="solutions" className="py-24 px-6 max-w-7xl mx-auto">
+                <div className="mb-16">
+                    <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight font-space">
+                        SIMPLIFIER<br/>
+                        <span className="text-[#818CF8]">L'ORGANISATION.</span>
+                    </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    {/* Card 1 : Collecte */}
-                    <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:bg-slate-900/60 transition-colors flex flex-col group">
-                        <div className="mb-6">
-                            <div className="bg-indigo-500/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <ClipboardList className="w-6 h-6 text-indigo-400" />
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-2">1. Collecte Infos</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">
-                                On crée le formulaire sur-mesure (Allergies, Enfants, Navettes...).
-                                Les invités remplissent sur leur téléphone.
+                    {/* Carte 1 : Collecte (INDIGO) */}
+                    <div className="bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-[#818CF8] transition-all duration-300 group relative overflow-hidden shadow-lg">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#818CF8]/10 blur-3xl rounded-full group-hover:bg-[#818CF8]/20 transition-all"></div>
+                        <ClipboardList className="w-10 h-10 text-[#818CF8] mb-6" />
+                        <h3 className="text-2xl font-bold text-white mb-4">1. Formulaires</h3>
+                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                            Fini la saisie manuelle. Vos mariés remplissent un formulaire propre sur téléphone. Les infos arrivent directement dans votre tableau.
+                        </p>
+                    </div>
+
+                    {/* Carte 2 : Pilotage (ROSE/FUCHSIA) */}
+                    <div className="md:col-span-2 bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-fuchsia-500 transition-all duration-300 group relative overflow-hidden flex flex-col md:flex-row gap-8 items-center shadow-lg">
+                        <div className="absolute top-[-50%] left-[20%] w-64 h-64 bg-fuchsia-500/10 blur-3xl rounded-full group-hover:bg-fuchsia-500/20 transition-all"></div>
+                        <div className="flex-1 relative z-10">
+                            <h3 className="text-2xl font-bold text-white mb-4">
+                                2. Pilotage <span className="text-fuchsia-400">Global</span>
+                            </h3>
+                            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                                Gardez le contrôle. En un coup d'œil, vous savez qui a validé sa venue, le nombre exact de repas végétariens et les tâches restantes.
                             </p>
                         </div>
-                        {/* Mini UI */}
-                        <div className="mt-auto bg-slate-950 border border-white/10 rounded-xl p-4 relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500"></div>
-                            <div className="flex justify-between items-center mb-3">
-                                <span className="text-[10px] text-slate-400 uppercase font-bold">Formulaire Invité</span>
+                        <div className="w-full md:w-1/2 bg-[#121217] rounded-xl border border-white/5 p-4 shadow-2xl relative z-10">
+                            <div className="flex justify-between items-center bg-[#1A1A20] p-3 rounded-lg border border-white/5 mb-2">
+                                <span className="text-xs text-white">Alice M.</span>
+                                <span className="text-[10px] bg-fuchsia-500/20 text-fuchsia-300 px-2 py-0.5 rounded font-bold border border-fuchsia-500/20">Menu Validé</span>
                             </div>
-                            <div className="space-y-3">
-                                <div>
-                                    <div className="text-[9px] text-slate-500 mb-1">Régime Alimentaire</div>
-                                    <div className="bg-slate-800 text-xs text-white px-2 py-1.5 rounded border border-white/5 flex justify-between items-center">
-                                        Sans Gluten <ChevronDown size={10} className="text-slate-500"/>
-                                    </div>
-                                </div>
-                                <div className="bg-white h-7 rounded w-full mt-2 flex items-center justify-center text-[10px] font-bold text-slate-900 uppercase tracking-wide">
-                                    Confirmer ma venue
-                                </div>
+                            <div className="flex justify-between items-center bg-[#1A1A20] p-3 rounded-lg border border-white/5">
+                                <span className="text-xs text-white">Lucas P.</span>
+                                <span className="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded">En attente</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Card 2 : Organisation */}
-                    <div className="bg-slate-900/40 border border-white/5 rounded-3xl p-6 hover:bg-slate-900/60 transition-colors flex flex-col group">
-                        <div className="mb-6">
-                            <div className="bg-fuchsia-500/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Database className="w-6 h-6 text-fuchsia-400" />
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-2">2. Organisation</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">
-                                Votre tableau de bord est toujours à jour.
-                                Sachez exactement combien de repas Végé commander.
-                            </p>
-                        </div>
-                        {/* Mini UI */}
-                        <div className="mt-auto bg-white rounded-xl p-3 shadow-sm border border-slate-200">
-                            <div className="grid grid-cols-3 gap-1 mb-2 border-b border-slate-100 pb-1">
-                                <span className="text-[9px] text-slate-400 font-bold uppercase">Nom</span>
-                                <span className="text-[9px] text-slate-400 font-bold uppercase">Menu</span>
-                                <span className="text-[9px] text-slate-400 font-bold uppercase text-right">Statut</span>
-                            </div>
-                            <div className="space-y-2">
-                                <div className="grid grid-cols-3 gap-1 items-center">
-                                    <span className="text-[10px] text-slate-700 font-bold truncate">Thomas D.</span>
-                                    <span className="text-[9px] text-slate-500 bg-slate-100 px-1 rounded w-fit">Boeuf</span>
-                                    <span className="text-[9px] text-green-600 bg-green-50 px-1.5 py-0.5 rounded-full font-bold text-right w-fit ml-auto">Validé</span>
-                                </div>
-                                <div className="grid grid-cols-3 gap-1 items-center">
-                                    <span className="text-[10px] text-slate-700 font-bold truncate">Sarah L.</span>
-                                    <span className="text-[9px] text-indigo-500 bg-indigo-50 px-1 rounded w-fit font-medium">Végé</span>
-                                    <span className="text-[9px] text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full font-bold text-right w-fit ml-auto">Attente</span>
-                                </div>
-                            </div>
-                        </div>
+                    {/* Carte 3 : Communication (VERT/EMERALD) */}
+                    <div className="bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-emerald-500 transition-all duration-300 group relative overflow-hidden shadow-lg">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-3xl rounded-full group-hover:bg-emerald-500/20 transition-all"></div>
+                        <MessageCircle className="w-10 h-10 text-emerald-400 mb-6" />
+                        <h3 className="text-2xl font-bold text-white mb-4">
+                            3. WhatsApp <span className="text-emerald-400">Bot</span>
+                        </h3>
+                        <p className="text-slate-400 text-sm leading-relaxed">
+                            Automatisez les tâches répétitives. Confirmation de présence, envoi du plan d'accès ou rappel des horaires par WhatsApp.
+                        </p>
                     </div>
 
-                    {/* Card 3 : Bot */}
-                    <div className="bg-slate-900/40 border border-indigo-500/20 rounded-3xl p-6 hover:bg-slate-900/60 transition-colors flex flex-col group">
-                        <div className="mb-6">
-                            <div className="bg-emerald-500/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Bot className="w-6 h-6 text-emerald-400" />
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-2">3. Bot WhatsApp</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">
-                                Il répond aux questions simples (Adresses, Horaires) en utilisant uniquement les infos validées.
-                            </p>
+                    {/* CTA */}
+                    <div className="md:col-span-2 bg-gradient-to-r from-[#818CF8] to-[#6366f1] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between text-white relative overflow-hidden shadow-2xl">
+                        <div className="relative z-10">
+                            <h3 className="text-2xl font-black mb-2 font-space">PRÊT À GAGNER DU TEMPS ?</h3>
+                            <p className="text-indigo-100 text-sm opacity-90">Concentrez-vous sur l'événement, pas sur le fichier Excel.</p>
                         </div>
-                        {/* Mini UI */}
-                        <div className="mt-auto bg-slate-950/50 border border-white/5 rounded-xl p-4">
-                            <div className="space-y-3">
-                                <div className="bg-slate-800 p-2 rounded-lg rounded-tl-none text-[10px] text-slate-300 w-fit max-w-[85%]">
-                                    C'est où le cocktail déjà ? 🍸
-                                </div>
-                                <div className="ml-auto w-fit max-w-[85%] flex flex-col items-end">
-                                    <div className="bg-emerald-700 p-2 rounded-lg rounded-tr-none text-[10px] text-white shadow-lg">
-                                        Au Domaine de Verchant !
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button onClick={openModal} className="relative z-10 mt-6 md:mt-0 bg-white text-[#4f46e5] font-bold px-8 py-3 rounded-lg hover:scale-105 transition-transform shadow-xl">
+                            Démarrer l'audit
+                        </button>
                     </div>
                 </div>
             </section>
 
-            {/* --- SECTION ILYES (ID ABOUT) --- */}
-            <section id="contact" className="py-24 px-6 relative">
-                <div className="max-w-4xl mx-auto bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden">
-
-                    <div className="grid md:grid-cols-3 gap-8 items-center">
-
-                        {/* Photo Avatar */}
-                        <div className="md:col-span-1 flex justify-center">
-                            <div className="w-32 h-32 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-900 shadow-xl overflow-hidden relative group">
-                                <img
-                                    src="/ma-tete.jpeg"
-                                    alt="Ilyes Vanta Lab"
-                                    className="w-full h-full object-cover transform scale-150 transition-transform duration-500"
-                                />
-                            </div>
+            {/* --- SECTION ILYES --- */}
+            <section id="contact" className="py-24 px-6 max-w-5xl mx-auto">
+                <div className="bg-[#0A0A0E] border border-white/10 rounded-[3rem] p-8 md:p-16 text-center relative overflow-hidden shadow-2xl">
+                    <div className="relative z-10">
+                        <div className="w-24 h-24 mx-auto bg-slate-800 rounded-full border-4 border-[#0A0A0E] ring-2 ring-[#818CF8]/50 mb-8 overflow-hidden shadow-[0_0_20px_rgba(129,140,248,0.3)]">
+                            <img src="/ma-tete.jpeg" alt="Ilyes" className="w-full h-full object-cover"/>
                         </div>
 
-                        {/* Texte Contact */}
-                        <div className="md:col-span-2 text-center md:text-left">
-                            <h2 className="text-2xl font-bold text-white mb-4">
-                                "Parlons de votre organisation."
-                            </h2>
-                            <p className="text-slate-400 leading-relaxed mb-8 text-sm">
-                                Je suis <strong>Ilyes</strong>. Chaque agence est unique. <br/>
-                                Plutôt que de vous vendre un outil standard, je vous propose d'échanger pour définir <strong>comment adapter</strong> mon système d'organisation à vos événements.
+                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-space">
+                            "Parlons de votre façon de travailler."
+                        </h2>
+
+                        <div className="text-slate-400 leading-relaxed mb-10 text-sm md:text-base max-w-lg mx-auto space-y-4">
+                            <p>
+                                Je suis <strong>Ilyes</strong>.
                             </p>
-
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                <button
-                                    onClick={openModal}
-                                    className="bg-white text-slate-900 font-bold py-3 px-8 rounded-xl hover:bg-slate-200 transition-colors shadow-lg flex items-center justify-center gap-2"
-                                >
-                                    <Calendar size={16} />
-                                    Réserver un appel
-                                </button>
-                                <a href="mailto:contact@irizu.dev" className="text-slate-400 hover:text-white font-medium py-3 px-6 text-sm transition-colors border border-white/10 rounded-xl hover:bg-white/5 flex items-center justify-center">
-                                    Me contacter par email
-                                </a>
-                            </div>
-
-                            <div className="mt-6 flex items-center justify-center md:justify-start gap-2 text-[10px] text-slate-500">
-                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                Dispo cette semaine pour de nouveaux projets
-                            </div>
+                            <p>
+                                Vous connaissez votre métier mieux que personne. Mon rôle n'est pas de changer votre organisation, mais de lui donner les outils techniques pour qu'elle tourne toute seule.
+                            </p>
+                            <p className="text-[#818CF8] font-medium">
+                                On regarde ce qui vous prend du temps aujourd'hui, et on l'automatise pour demain.
+                            </p>
                         </div>
 
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <button
+                                onClick={openModal}
+                                className="bg-[#818CF8] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#6b77e8] transition-colors shadow-[0_0_20px_rgba(129,140,248,0.3)] flex items-center justify-center gap-2"
+                            >
+                                <Calendar size={18} />
+                                Réserver un appel
+                            </button>
+                            <a href="mailto:contact@irizu.dev" className="text-slate-400 hover:text-white font-medium py-3 px-6 text-sm transition-colors border border-white/10 rounded-xl hover:bg-white/5">
+                                Me contacter par email
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* FOOTER */}
-            <footer className="py-10 text-center border-t border-white/5 bg-slate-950">
-                <p className="text-slate-600 text-xs font-medium tracking-widest uppercase">Vanta Lab © 2026</p>
+            <footer className="py-10 text-center border-t border-white/5 bg-[#050508]">
+                <div className="flex justify-center items-center gap-2 mb-4 opacity-70">
+                    <span className="font-bold tracking-tighter text-white font-space">VANTA</span>
+                    <div className="w-1.5 h-1.5 bg-[#818CF8] rounded-full"></div>
+                </div>
+                <p className="text-slate-600 text-[10px] font-mono tracking-widest uppercase">
+                    2026
+                </p>
             </footer>
 
-            {/* --- CUSTOM MODAL CALENDLY (IFRAME DIRECT - ZÉRO LAG) --- */}
+            {/* MODAL */}
             {isCalendlyOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    {/* Backdrop avec flou */}
-                    <div
-                        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
-                        onClick={() => setIsCalendlyOpen(false)}
-                    ></div>
-
-                    {/* Contenu de la modale */}
-                    <div className="relative bg-slate-900 w-full max-w-4xl h-[700px] max-h-[90vh] rounded-3xl border border-white/10 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
-
-                        {/* Bouton Fermer */}
-                        <button
-                            onClick={() => setIsCalendlyOpen(false)}
-                            className="absolute top-4 right-4 z-50 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors border border-white/10"
-                        >
+                    <div className="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity" onClick={() => setIsCalendlyOpen(false)}></div>
+                    <div className="relative bg-[#0A0A0E] w-full max-w-4xl h-[700px] max-h-[90vh] rounded-3xl border border-white/10 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+                        <button onClick={() => setIsCalendlyOpen(false)} className="absolute top-4 right-4 z-50 bg-black/50 hover:bg-[#818CF8] text-white p-2 rounded-full transition-all border border-white/10">
                             <X size={20} />
                         </button>
-
-                        {/* Iframe Calendly Directe */}
                         <div className="w-full h-full relative z-10 bg-white">
                             {!iframeLoaded && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-slate-900 text-indigo-500 z-0">
+                                <div className="absolute inset-0 flex items-center justify-center bg-[#0A0A0E] text-[#818CF8] z-0">
                                     <Loader2 className="w-8 h-8 animate-spin" />
                                 </div>
                             )}
-                            <iframe
-                                src={calendlyLink}
-                                width="100%"
-                                height="100%"
-                                frameBorder="0"
-                                onLoad={() => setIframeLoaded(true)}
-                                className={`relative z-10 transition-opacity duration-500 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
-                            ></iframe>
+                            <iframe src={calendlyLink} width="100%" height="100%" frameBorder="0" onLoad={() => setIframeLoaded(true)} className={`relative z-10 transition-opacity duration-500 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}></iframe>
                         </div>
                     </div>
                 </div>
             )}
-
         </div>
     );
 }
