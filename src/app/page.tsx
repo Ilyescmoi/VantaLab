@@ -19,7 +19,7 @@ export default function VantaLabFinal() {
         setIsMobileMenuOpen(false);
     };
 
-    // --- LA CLASS DU BOUTON ULTIME (3D + GLOW + CLICK) ---
+    // CLASS DU BOUTON ULTIME
     const btnClass = `
         bg-[#818CF8] text-white font-bold rounded-xl flex items-center justify-center gap-2 
         border border-white/10
@@ -42,35 +42,74 @@ export default function VantaLabFinal() {
                     font-family: 'Space Grotesk', sans-serif !important; 
                 }
                 
-                /* TITRES 3D OFFSET */
                 .text-3d-vanta {
                     color: white;
                     text-shadow: 3px 3px 0px #818CF8;
                 }
 
+                /* Animation de flottement très lente et douce */
+                @keyframes float {
+                    0% { transform: translateY(0px) scale(1); opacity: 0.2; }
+                    50% { transform: translateY(-15px) scale(1.1); opacity: 0.5; }
+                    100% { transform: translateY(0px) scale(1); opacity: 0.2; }
+                }
+                .animate-float { animation: float 8s ease-in-out infinite; }
+                
+                /* Délais pour désynchroniser les particules */
+                .delay-1000 { animation-delay: 1.5s; }
+                .delay-2000 { animation-delay: 3s; }
+                .delay-3000 { animation-delay: 4.5s; }
+                .delay-4000 { animation-delay: 6s; }
+                .delay-5000 { animation-delay: 7.5s; }
+
                 html { scroll-behavior: smooth; }
             `}} />
 
-            {/* --- FOND --- */}
+            {/* --- FOND AMBIANT GLOBAL --- */}
             <div className="fixed top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#818CF8]/10 rounded-full blur-[120px] pointer-events-none z-0 mix-blend-screen animate-pulse"></div>
             <div className="fixed bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] pointer-events-none z-0 mix-blend-screen"></div>
+
+            {/* GRILLE TECHNIQUE LÉGÈRE */}
             <div className="fixed inset-0 z-0 opacity-10 pointer-events-none"
                  style={{
                      backgroundImage: 'linear-gradient(rgba(129, 140, 248, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(129, 140, 248, 0.1) 1px, transparent 1px)',
-                     backgroundSize: '50px 50px'
+                     backgroundSize: '40px 40px'
                  }}>
+            </div>
+
+            {/* --- PARTICULES "VANTA DUST" (UNIQUEMENT DES CERCLES) --- */}
+            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+                {/* 1. Hero Droite (Cyan subtil) */}
+                <div className="absolute top-[20%] right-[10%] w-2 h-2 bg-cyan-400 rounded-full blur-[2px] opacity-30 animate-float"></div>
+
+                {/* 2. Hero Gauche (Indigo) */}
+                <div className="absolute top-[30%] left-[5%] w-1.5 h-1.5 bg-[#818CF8] rounded-full blur-[1px] opacity-40 animate-float delay-1000"></div>
+
+                {/* 3. Zone vide Mobile (Pour remplacer la carte 3D) */}
+                <div className="absolute top-[50%] left-[50%] w-3 h-3 bg-purple-400 rounded-full blur-[4px] opacity-20 animate-float delay-2000 md:hidden"></div>
+
+                {/* 4. Section Solutions (Petit point blanc net) */}
+                <div className="absolute bottom-[40%] right-[20%] w-1 h-1 bg-white rounded-full opacity-30 animate-float delay-3000"></div>
+
+                {/* 5. Section Bio (Indigo) */}
+                <div className="absolute bottom-[20%] left-[15%] w-2 h-2 bg-[#818CF8] rounded-full blur-[2px] opacity-30 animate-float delay-4000"></div>
+
+                {/* 6. Footer (Cyan très flou) */}
+                <div className="absolute bottom-[5%] right-[5%] w-4 h-4 bg-cyan-500 rounded-full blur-[8px] opacity-20 animate-float delay-5000"></div>
+
+                {/* 7. Extra Dust (Grain fin) */}
+                <div className="absolute top-[15%] right-[40%] w-0.5 h-0.5 bg-white rounded-full opacity-40 animate-float delay-2000"></div>
+                <div className="absolute bottom-[30%] left-[40%] w-0.5 h-0.5 bg-white rounded-full opacity-40 animate-float delay-1000"></div>
             </div>
 
             {/* --- NAV RESPONSIVE --- */}
             <nav className="fixed w-full z-50 top-6 px-6">
                 <div className="max-w-7xl mx-auto bg-[#0A0A0E]/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 md:py-4 flex items-center justify-between shadow-2xl">
-
-                    {/* LOGO */}
                     <a href="#" className="flex items-center">
                         <img
                             src="/logo-vanta-3d.svg"
                             alt="Vanta Lab Logo"
-                            className="h-12 md:h-16 w-auto object-contain hover:scale-105 transition-transform"
+                            className="h-14 md:h-20 w-auto object-contain hover:scale-105 transition-transform"
                         />
                     </a>
 
@@ -80,10 +119,7 @@ export default function VantaLabFinal() {
                         <a href="#contact" className="hover:text-[#818CF8] transition-colors">Qui je suis</a>
                     </div>
 
-                    <button
-                        onClick={openModal}
-                        className={`hidden md:flex px-6 py-3 text-xs ${btnClass}`}
-                    >
+                    <button onClick={openModal} className={`hidden md:flex px-6 py-3 text-xs ${btnClass}`}>
                         Discuter de mon projet
                     </button>
 
@@ -106,33 +142,33 @@ export default function VantaLabFinal() {
             </nav>
 
             {/* --- HERO SECTION --- */}
-            <section id="demo" className="relative z-10 pt-40 pb-20 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-                <div className="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
+            <section id="demo" className="relative z-10 pt-32 pb-16 md:pt-40 md:pb-20 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                <div className="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left relative z-10">
 
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.95] font-space">
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-6 md:mb-8 leading-[0.95] font-space">
                         VOS INVITÉS.<br/>
                         <span className="text-3d-vanta tracking-wide">
                             SOUS CONTRÔLE.
                         </span>
                     </h1>
 
-                    <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
+                    <p className="text-base md:text-lg text-slate-400 mb-8 md:mb-10 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
                         Centralisez la gestion de vos invités. Fini les tableaux noirs et blancs, place à l'automatisation intelligente.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-                        <a href="#solutions" className={`px-8 py-4 ${btnClass}`}>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#solutions" className={`w-full sm:w-auto px-8 py-4 ${btnClass}`}>
                             Voir le système
                             <ArrowRight className="w-4 h-4" />
                         </a>
 
-                        <a href="#contact" className="px-8 py-4 border border-white/10 text-white font-bold rounded-xl hover:bg-[#818CF8]/10 transition-colors text-center flex items-center justify-center">
+                        <a href="#contact" className="w-full sm:w-auto px-8 py-4 border border-white/10 text-white font-bold rounded-xl hover:bg-[#818CF8]/10 transition-colors text-center flex items-center justify-center">
                             Me contacter
                         </a>
                     </div>
                 </div>
 
-                {/* 3D FLOATING CARDS */}
+                {/* VISUALISATION 3D DESKTOP (Cachée sur Mobile) */}
                 <div className="relative h-[500px] hidden lg:block perspective-[2000px]">
                     <div className="absolute top-20 right-10 w-72 bg-[#121217] border border-white/10 hover:border-[#818CF8]/50 p-6 rounded-3xl transform rotate-y-[-10deg] rotate-x-[5deg] translate-z-[50px] shadow-2xl hover:scale-105 transition-transform duration-500 z-20">
                         <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
@@ -192,13 +228,11 @@ export default function VantaLabFinal() {
                         </p>
                     </div>
 
-                    {/* Carte 2 : Pilotage (ROSE/FUCHSIA) */}
+                    {/* Carte 2 : Pilotage */}
                     <div className="md:col-span-2 bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-fuchsia-500 transition-all duration-300 group relative overflow-hidden flex flex-col md:flex-row gap-8 items-center shadow-lg">
                         <div className="absolute top-[-50%] left-[20%] w-64 h-64 bg-fuchsia-500/10 blur-3xl rounded-full group-hover:bg-fuchsia-500/20 transition-all"></div>
                         <div className="flex-1 relative z-10">
-                            {/* ICÔNE AJOUTÉE ICI : LayoutDashboard en Fuchsia */}
                             <LayoutDashboard className="w-10 h-10 text-fuchsia-400 mb-6" />
-
                             <h3 className="text-2xl font-bold text-white mb-4">
                                 2. Pilotage <span className="text-fuchsia-400">Global</span>
                             </h3>
@@ -295,7 +329,7 @@ export default function VantaLabFinal() {
                     />
                 </div>
                 <p className="text-slate-600 text-[10px] font-mono tracking-widest uppercase">
-                    Designed in Paris © 2026
+                    2026
                 </p>
             </footer>
 
