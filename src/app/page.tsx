@@ -51,21 +51,39 @@ export default function VantaLabFinal() {
                 html { scroll-behavior: smooth; }
             `}} />
 
-            {/* --- FOND --- */}
+            {/* --- FOND (AURORES + PARTICULES DIFFUSES) --- */}
+
+            {/* 1. Les Aurores (Ambiance globale) */}
             <div className="fixed top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#818CF8]/10 rounded-full blur-[120px] pointer-events-none z-0 mix-blend-screen animate-pulse"></div>
             <div className="fixed bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] pointer-events-none z-0 mix-blend-screen"></div>
-            <div className="fixed inset-0 z-0 opacity-10 pointer-events-none"
-                 style={{
-                     backgroundImage: 'linear-gradient(rgba(129, 140, 248, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(129, 140, 248, 0.1) 1px, transparent 1px)',
-                     backgroundSize: '50px 50px'
-                 }}>
-            </div>
+
+            {/* 2. LES PARTICULES DIFFUSES (Retour aux points colorés, mais avec un flou énorme) */}
+
+            {/* Haut Gauche - Indigo Diffus */}
+            {/* J'ai augmenté le shadow blur de 15px à 50px et baissé l'opacité à 50% */}
+            <div className="fixed top-[15%] left-[5%] w-2 h-2 bg-[#818CF8] rounded-full shadow-[0_0_50px_#818CF8] opacity-50 pointer-events-none z-0"></div>
+
+            {/* Haut Milieu - Cyan Diffus */}
+            <div className="fixed top-[25%] left-[25%] w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_40px_cyan] opacity-40 pointer-events-none z-0 animate-pulse"></div>
+
+            {/* Haut Droite - Violet Diffus */}
+            <div className="fixed top-[10%] right-[10%] w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_60px_purple] opacity-50 pointer-events-none z-0"></div>
+            <div className="fixed top-[35%] right-[5%] w-1 h-1 bg-[#818CF8] rounded-full shadow-[0_0_30px_#818CF8] opacity-40 pointer-events-none z-0"></div>
+
+            {/* Milieu - Émeraude/Fuchsia Diffus */}
+            <div className="fixed top-[50%] left-[8%] w-1.5 h-1.5 bg-emerald-400 rounded-full shadow-[0_0_40px_emerald] opacity-30 pointer-events-none z-0"></div>
+            <div className="fixed top-[60%] right-[15%] w-2 h-2 bg-fuchsia-500 rounded-full shadow-[0_0_50px_fuchsia] opacity-30 pointer-events-none z-0"></div>
+
+            {/* Bas - Indigo/Bleu Diffus */}
+            <div className="fixed bottom-[20%] left-[12%] w-2.5 h-2.5 bg-[#818CF8] rounded-full shadow-[0_0_70px_#818CF8] opacity-40 pointer-events-none z-0"></div>
+            <div className="fixed bottom-[10%] right-[30%] w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_40px_cyan] opacity-30 pointer-events-none z-0"></div>
+
 
             {/* --- NAV RESPONSIVE --- */}
             <nav className="fixed w-full z-50 top-6 px-6">
                 <div className="max-w-7xl mx-auto bg-[#0A0A0E]/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-4 flex items-center justify-between shadow-2xl">
 
-                    {/* LOGO - TAILLE MOBILE BOOSTÉE À 16 (64px) */}
+                    {/* LOGO */}
                     <a href="#" className="flex items-center">
                         <img
                             src="/logo-vanta-3d.svg"
@@ -105,23 +123,21 @@ export default function VantaLabFinal() {
                 )}
             </nav>
 
-            {/* --- HERO SECTION CENTRÉE & GROSSIE --- */}
-            {/* J'ai ajouté 'min-h-screen' et 'flex items-center' pour le centrage vertical parfait */}
-            <section id="demo" className="relative z-10 min-h-screen flex items-center pt-14 pb-12 px-6 max-w-7xl mx-auto">
+            {/* --- HERO SECTION CENTRÉE --- */}
+            <section id="demo" className="relative z-10 min-h-screen flex items-center pt-20 pb-12 px-6 max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
 
-                    <div className="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left flex flex-col justify-center h-full">
+                    {/* COLONNE TEXTE */}
+                    <div className="max-w-3xl mx-auto lg:mx-0 text-center lg:text-left flex flex-col justify-center h-full">
 
-                        {/* TITRE ENCORE PLUS GROS SUR MOBILE (text-6xl) */}
-                        <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-6 md:mb-8 leading-[0.9] font-space">
+                        <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.9] font-space">
                             VOS INVITÉS.<br/>
                             <span className="text-3d-vanta tracking-wide">
                                 SOUS CONTRÔLE.
                             </span>
                         </h1>
 
-                        {/* DESCRIPTION PLUS LISIBLE (text-lg) */}
-                        <p className="text-lg md:text-xl text-slate-400 mb-8 md:mb-12 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
+                        <p className="text-lg md:text-xl text-slate-400 mb-12 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
                             Centralisez la gestion de vos invités. Fini les tableaux noirs et blancs, place à l'automatisation intelligente.
                         </p>
 
@@ -135,12 +151,9 @@ export default function VantaLabFinal() {
                                 Me contacter
                             </a>
                         </div>
-
-                        {/* --- VISUALISATION MOBILE (Déplacée ici pour être centrée sous le texte) --- */}
-
                     </div>
 
-                    {/* --- VISUALISATION DESKTOP 3D --- */}
+                    {/* --- VISUALISATION DESKTOP UNIQUEMENT --- */}
                     <div className="relative h-[500px] hidden lg:block perspective-[2000px]">
                         <div className="absolute top-20 right-10 w-72 bg-[#121217] border border-white/10 hover:border-[#818CF8]/50 p-6 rounded-3xl transform rotate-y-[-10deg] rotate-x-[5deg] translate-z-[50px] shadow-2xl hover:scale-105 transition-transform duration-500 z-20">
                             <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
@@ -205,9 +218,7 @@ export default function VantaLabFinal() {
                     <div className="md:col-span-2 bg-[#0E0E12] border border-white/10 rounded-3xl p-8 hover:border-fuchsia-500 transition-all duration-300 group relative overflow-hidden flex flex-col md:flex-row gap-8 items-center shadow-lg">
                         <div className="absolute top-[-50%] left-[20%] w-64 h-64 bg-fuchsia-500/10 blur-3xl rounded-full group-hover:bg-fuchsia-500/20 transition-all"></div>
                         <div className="flex-1 relative z-10">
-                            {/* ICÔNE AJOUTÉE ICI : LayoutDashboard en Fuchsia */}
                             <LayoutDashboard className="w-10 h-10 text-fuchsia-400 mb-6" />
-
                             <h3 className="text-2xl font-bold text-white mb-4">
                                 2. Pilotage <span className="text-fuchsia-400">Global</span>
                             </h3>
