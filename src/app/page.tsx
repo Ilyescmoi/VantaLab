@@ -81,14 +81,14 @@ export default function VantaLabFinal() {
 
             {/* --- NAV RESPONSIVE --- */}
             <nav className="fixed w-full z-50 top-6 px-6">
-                <div className="max-w-7xl mx-auto bg-[#0A0A0E]/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-4 flex items-center justify-between shadow-2xl">
+                <div className="max-w-7xl mx-auto bg-[#0A0A0E]/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-1 flex items-center justify-between shadow-2xl">
 
                     {/* LOGO */}
                     <a href="#" className="flex items-center">
                         <img
                             src="/logo-vanta-3d.svg"
                             alt="Vanta Lab Logo"
-                            className="h-16 md:h-20 w-auto object-contain hover:scale-105 transition-transform"
+                            className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform"
                         />
                     </a>
 
@@ -100,7 +100,7 @@ export default function VantaLabFinal() {
 
                     <button
                         onClick={openModal}
-                        className={`hidden md:flex px-6 py-3 text-xs ${btnClass}`}
+                        className={`hidden md:flex px-6 py-2 text-xs ${btnClass}`}
                     >
                         Discuter de mon projet
                     </button>
@@ -282,7 +282,7 @@ export default function VantaLabFinal() {
                                 Je suis <strong>Ilyes</strong>.
                             </p>
                             <p>
-                                Vous connaissez votre métier mieux que personne. Mon rôle n'est pas de changer votre organisation, mais de lui donner les outils techniques pour qu'elle tourne toute seule.
+                                Vous connaissez votre métier mieux que personne. De mon côté, j’apporte des solutions techniques pensées pour simplifier votre quotidien et éliminer les tâches chronophages.
                             </p>
                             <p className="text-[#818CF8] font-medium">
                                 On regarde ce qui vous prend du temps aujourd'hui, et on l'automatise pour demain.
