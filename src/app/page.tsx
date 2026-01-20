@@ -107,7 +107,7 @@ export default function VantaLabFinal() {
 
             {/* --- HERO SECTION CENTRÉE & GROSSIE --- */}
             {/* J'ai ajouté 'min-h-screen' et 'flex items-center' pour le centrage vertical parfait */}
-            <section id="demo" className="relative z-10 min-h-screen flex items-center pt-20 pb-12 px-6 max-w-7xl mx-auto">
+            <section id="demo" className="relative z-10 min-h-screen flex items-center pt-14 pb-12 px-6 max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
 
                     <div className="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left flex flex-col justify-center h-full">
@@ -137,25 +137,6 @@ export default function VantaLabFinal() {
                         </div>
 
                         {/* --- VISUALISATION MOBILE (Déplacée ici pour être centrée sous le texte) --- */}
-                        <div className="lg:hidden mt-12 relative w-full max-w-[300px] mx-auto perspective-[1000px]">
-                            <div className="bg-[#121217] border border-white/10 p-5 rounded-3xl shadow-2xl transform rotate-x-[10deg] shadow-[0_20px_50px_-12px_rgba(129,140,248,0.2)]">
-                                <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-3">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                        <span className="text-[10px] font-bold text-white tracking-wide">DÉMO LIVE</span>
-                                    </div>
-                                    <Bot size={16} className="text-[#818CF8]"/>
-                                </div>
-                                <div className="space-y-3 font-mono text-[10px]">
-                                    <div className="bg-[#1F1F25] p-3 rounded-2xl rounded-tl-none border border-white/5 text-slate-300">
-                                        "C'est à quelle heure la mairie ?"
-                                    </div>
-                                    <div className="bg-[#818CF8] p-3 rounded-2xl rounded-tr-none text-white text-right shadow-lg">
-                                        "14h30 précise ! 💍"
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
 
